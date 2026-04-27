@@ -2,9 +2,9 @@
 
 **Snap** is an experimental Java library for serialization/deserialization, focused on clarity and cohesion.
 
-The central idea is very simple. First, you make your objects create [snapshots](#TODO) of their own state, and these
-snapshot objects. Next, you implement [serializers](#TODO) and [deserializers](#TODO) that work with snapshots. This
-approach requires some extra work but can result in more flexible and robust code.
+The central idea is very simple. First, you make your objects create [snapshots](#snapshots) of their own state, and
+these snapshot objects. Next, you implement [serializers](#serializers) and [deserializers](#deserializers) that work
+with snapshots. This approach requires some extra work but can result in more flexible and robust code.
 
 ## A quick example
 
@@ -94,3 +94,34 @@ public class ToStringSerializer implements Serializer<String> {
     }
 }
 ```
+
+## Design philosophy
+
+### Snapshots
+
+A snapshot is an object that represents the state of a domain object at a given point. The concept is heavily based on
+the [Memento design pattern](https://refactoring.guru/design-patterns/memento). Working with snapshots instead of
+polluting your domain classes with serialization logic has two advantages: higher control over how objects are
+serialized and stronger encapsulation.
+
+Snapshots are essentially mappings of string keys to node values. There's only six types of nodes: *number*, *boolean*,
+*string*, *list*, *map* and *nil*.
+
+These types can be grouped into:
+
+- **Scalars** (number, string and boolean). They represent a single element.
+- **Collections** (list and map). They represent a group of elements, which may or may not belong to the same type.
+- **Nil**. Represents the absence of value. It's the equivalent of Java's `null`.
+
+Serializing a collection node implies recursively serializing each node until a scalar or nil node is found.
+
+### Serializers
+
+A serializer is an object that transforms individual nodes to a specific type of payload. For example, a JSON serializer
+might transform nodes to `JsonValue` objects (Jakarta JSON API) or `JsonNode` (Jackson). Serializers are based on the
+[Visitor design pattern](https://refactoring.guru/design-patterns/visitor).
+
+### Deserializers
+
+Conversely, a deserializer is an object that transforms a source payload to a snapshot. Because all snapshots share a
+common interface, converting a payload to a snapshot shouldn't require casts, reflection or any other weird tricks.
