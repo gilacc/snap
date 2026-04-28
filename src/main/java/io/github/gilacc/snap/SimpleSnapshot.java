@@ -1,6 +1,6 @@
 /*
  * src/main/java/io/github/gilacc/snap/SimpleSnapshot.java - A simple, immutable snapshot implementation
- * Copyright (C) 2026 Antonio Gil contributors
+ * Copyright (C) 2026 Antonio Gil
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

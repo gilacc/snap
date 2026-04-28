@@ -1,6 +1,6 @@
 /*
  * src/main/java/io/github/gilacc/snap/Snapshot.java - Snapshot of an object's state
- * Copyright (C) 2026 Antonio Gil contributors
+ * Copyright (C) 2026 Antonio Gil
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
