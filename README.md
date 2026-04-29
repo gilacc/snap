@@ -1,5 +1,9 @@
 # &#128165; Snap
 
+[![mvn](https://github.com/gilacc/snap/actions/workflows/maven.yml/badge.svg)](https://github.com/gilacc/snap/actions/workflows/maven.yml)
+![GitHub License](https://img.shields.io/github/license/gilacc/snap)
+![Maven Central Version](https://img.shields.io/maven-central/v/io.github.gilacc/snap)
+
 **Snap** is an experimental Java library for serialization/deserialization, focused on clarity and cohesion.
 
 The central idea is very simple. First, you make your objects create [snapshots](#snapshots) of their own state, and
