@@ -1,8 +1,8 @@
 # &#128165; Snap
 
 [![mvn](https://github.com/gilacc/snap/actions/workflows/maven.yml/badge.svg)](https://github.com/gilacc/snap/actions/workflows/maven.yml)
-![GitHub License](https://img.shields.io/github/license/gilacc/snap)
-![Maven Central Version](https://img.shields.io/maven-central/v/io.github.gilacc/snap)
+[![GitHub License](https://img.shields.io/github/license/gilacc/snap)](https://central.sonatype.com/artifact/io.github.gilacc/snap)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.gilacc/snap)](https://github.com/gilacc/snap/blob/master/LICENSE)
 
 **Snap** is an experimental Java library for serialization/deserialization, focused on clarity and cohesion.
 
@@ -10,9 +10,11 @@ The central idea is very simple. First, you make your objects create [snapshots]
 these snapshot objects. Next, you implement [serializers](#serializers) and [deserializers](#deserializers) that work
 with snapshots. This approach requires some extra work but can result in more flexible and robust code.
 
-Snap is pretty much just a basic API, so you also need an implementation for your serializers and deserializers. You can roll out your own, or use an existing backend:
+Snap is pretty much just a basic API, so you also need an implementation for your serializers and deserializers. You
+can roll out your own, or use an existing backend:
 
-- [snap-json-jakarta](https://github.com/gilacc/snap-json-jakarta). Currently a work in progress. Uses the [Jakarta JSON API](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/web/jsonp/jsonp.html).
+- [snap-json-jakarta](https://github.com/gilacc/snap-json-jakarta). Currently a work in progress. Uses the
+[Jakarta JSON API](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/web/jsonp/jsonp.html).
 
 ## A quick example
 
