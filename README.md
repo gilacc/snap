@@ -6,6 +6,10 @@ The central idea is very simple. First, you make your objects create [snapshots]
 these snapshot objects. Next, you implement [serializers](#serializers) and [deserializers](#deserializers) that work
 with snapshots. This approach requires some extra work but can result in more flexible and robust code.
 
+Snap is pretty much just a basic API, so you also need an implementation for your serializers and deserializers. You can roll out your own, or use an existing backend:
+
+- [snap-json-jakarta](https://github.com/gilacc/snap-json-jakarta). Currently a work in progress. Uses the [Jakarta JSON API](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/web/jsonp/jsonp.html).
+
 ## A quick example
 
 This minimal example shows how to give a class the ability to create snapshots:
