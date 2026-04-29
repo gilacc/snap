@@ -52,55 +52,57 @@ create new implementations for it.
 Note that we haven't written a single line of serialization logic yet. This is only for modeling a generic snapshot
 (i.e. not tied to any particular format). In order to serialize snapshots to a given format, you create a class
 implementing `Serializer` that converts snapshots into your preferred format. This only needs to be done once for each
-target format, not for each type of resource. For example, this is
-[a dummy serializer used in Snap's tests](src/test/java/io/github/gilacc/snap/demo/ToStringSerializer.java), which just
-converts nodes to Java strings:
+target format, not for each type of resource. For example, consider
+[this JSON serializer using the Jakarta JSON API](https://github.com/gilacc/snap-json-jakarta/):
 
 ```java
-public class ToStringSerializer implements Serializer<String> {
-    private final Locale locale;
+public final class JakartaJsonSerializer implements Serializer<JsonValue> {
+    private final JsonBuilderFactory jsonBuilderFactory;
 
-    public ToStringSerializer(Locale locale) {
-        this.locale = locale;
+    public JakartaJsonSerializer(final JsonBuilderFactory jsonBuilderFactory) {
+        this.jsonBuilderFactory = jsonBuilderFactory;
     }
 
     @Override
-    public String serializeNumber(Number number) {
-        return new DecimalFormat(
+    public JsonValue serializeNumber(final Number number) {
+        final String representation = new DecimalFormat(
             "#.##################",
-            new DecimalFormatSymbols(this.locale)
+            new DecimalFormatSymbols(Locale.ENGLISH)
         ).format(number);
+        return Json.createValue(new BigDecimal(representation));
     }
 
     @Override
-    public String serializeBoolean(boolean bool) {
-        return Boolean.toString(bool);
+    public JsonValue serializeBoolean(final boolean bool) {
+        return (bool) ? JsonValue.TRUE : JsonValue.FALSE;
     }
 
     @Override
-    public String serializeString(String string) {
-        return string;
+    public JsonValue serializeString(final String string) {
+        return Json.createValue(string);
     }
 
     @Override
-    public String serializeList(List<Node> list) {
-        return list.stream()
-            .map(element -> element.serialize(this))
-            .toList()
-            .toString();
+    public JsonValue serializeList(final List<Node> list) {
+        final JsonArrayBuilder arrayBuilder = this.jsonBuilderFactory.createArrayBuilder();
+        list.stream()
+            .map(node -> node.serialize(this))
+            .forEach(arrayBuilder::add);
+        return arrayBuilder.build();
     }
 
     @Override
-    public String serializeMap(Map<String, Node> map) {
-        return new TreeMap<>(map.entrySet()
-            .stream()
-            .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().serialize(this)))
-        ).toString();
+    public JsonValue serializeMap(final Map<String, Node> map) {
+        final JsonObjectBuilder objectBuilder = this.jsonBuilderFactory.createObjectBuilder();
+        map.entrySet().stream()
+            .filter(entry -> entry.getValue() != null)
+            .forEach(entry -> objectBuilder.add(entry.getKey(), entry.getValue().serialize(this)));
+        return objectBuilder.build();
     }
 
     @Override
-    public String serializeNil() {
-        return "nil";
+    public JsonValue serializeNil() {
+        return JsonValue.NULL;
     }
 }
 ```
