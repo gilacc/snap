@@ -25,7 +25,7 @@ import io.github.gilacc.snap.serialization.Serializer;
  *
  * <p>{@link io.github.gilacc.snap.Snapshot} expose a {@link java.util.Map} of nodes, each of them representing a value
  * in the object's state, whether it is a scalar (boolean, number, string), a collection (map, list) or nil (Snap's
- * equivalent of {@link null}).</p>
+ * equivalent of {@code null}).</p>
  */
 public sealed interface Node permits BooleanNode, NumberNode, StringNode, ListNode, MapNode, NilNode {
 
