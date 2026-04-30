@@ -1,8 +1,8 @@
 # &#128165; Snap
 
 [![mvn](https://github.com/gilacc/snap/actions/workflows/maven.yml/badge.svg)](https://github.com/gilacc/snap/actions/workflows/maven.yml)
-[![GitHub License](https://img.shields.io/github/license/gilacc/snap)](https://central.sonatype.com/artifact/io.github.gilacc/snap)
-[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.gilacc/snap)](https://github.com/gilacc/snap/blob/master/LICENSE)
+[![GitHub License](https://img.shields.io/github/license/gilacc/snap)](https://github.com/gilacc/snap/blob/master/LICENSE)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.gilacc/snap)](https://central.sonatype.com/artifact/io.github.gilacc/snap)
 
 **Snap** is an experimental Java library for serialization/deserialization, focused on clarity and cohesion.
 
