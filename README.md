@@ -10,11 +10,13 @@ The central idea is very simple. First, you make your objects create [snapshots]
 these snapshot objects. Next, you implement [serializers](#serializers) and [deserializers](#deserializers) that work
 with snapshots. This approach requires some extra work but can result in more flexible and robust code.
 
-Snap is pretty much just a basic API, so you also need an implementation for your serializers and deserializers. You
-can roll out your own, or use an existing backend:
+Snap is pretty much just a basic API, so you also need an implementation for your serializers and deserializers. You can
+roll out your own, or use an existing backend:
 
 - [snap-json-jakarta](https://github.com/gilacc/snap-json-jakarta). Currently a work in progress. Uses the
 [Jakarta JSON API](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/web/jsonp/jsonp.html).
+- [snap-json-jackson](https://github.com/gilacc/snap-json-jackson). Currently a work in progress. Uses
+[Jackson Core](https://github.com/fasterxml/jackson) + [Databind](https://github.com/FasterXML/jackson-databind).
 
 ## A quick example
 
@@ -53,7 +55,7 @@ Note that we haven't written a single line of serialization logic yet. This is o
 (i.e. not tied to any particular format). In order to serialize snapshots to a given format, you create a class
 implementing `Serializer` that converts snapshots into your preferred format. This only needs to be done once for each
 target format, not for each type of resource. For example, consider
-[this JSON serializer using the Jakarta JSON API](https://github.com/gilacc/snap-json-jakarta/):
+[this JSON serializer using the Jakarta JSON API](https://github.com/gilacc/snap-json-jakarta):
 
 ```java
 public final class JakartaJsonSerializer implements Serializer<JsonValue> {
